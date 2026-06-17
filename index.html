@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valores Growth Team</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+</head>
+<body>
+
+    <div id="scene-1" class="scene active">
+        <div class="background top-bg"></div>
+        
+        <img src="assets/mesa.png" class="mesa" alt="Escritorio de oficina">
+        
+        <div class="physics-object pergamino" data-valor="data" style="filter: hue-rotate(0deg);">
+            <img src="assets/pergaminos.png" alt="Data Driven">
+        </div>
+        <div class="physics-object pergamino" data-valor="agility" style="filter: hue-rotate(90deg);">
+            <img src="assets/pergaminos.png" alt="Agility">
+        </div>
+        <div class="physics-object pergamino" data-valor="impact" style="filter: hue-rotate(180deg);">
+            <img src="assets/pergaminos.png" alt="Impact">
+        </div>
+        <div class="physics-object pergamino" data-valor="candor" style="filter: hue-rotate(270deg);">
+            <img src="assets/pergaminos.png" alt="Candor">
+        </div>
+		<div class="physics-object pergamino" data-valor="ownership" style="filter: hue-rotate(330deg);">
+            <img src="assets/pergaminos.png" alt="Ownership">
+        </div>
+
+        <button id="btn-reiniciar" class="nav-btn top-right">↺ REINICIAR</button>
+        <button id="btn-conocenos" class="nav-btn right">CONOCENOS ➔</button>
+    </div>
+
+    <div id="modal-mensaje" class="modal hidden">
+        <div class="modal-content anime-scroll">
+            <div class="modal-header">
+                <h3 id="modal-titulo">TÍTULO</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modal-texto">Descripción del valor.</p>
+            </div>
+            <button id="btn-cerrar-modal" class="btn-primary">ENTENDIDO ✔</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

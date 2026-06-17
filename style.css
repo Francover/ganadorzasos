@@ -1,0 +1,114 @@
+/* --- VARIABLES CSS --- */
+
+/* #btn-conocenos {
+	display: none;
+} */
+:root {
+    --color-bg-dark: #111;
+    --color-primary: #00ff88;
+    --color-text-light: #ffffff;
+    --color-text-dark: #2c3e50;
+    
+    --modal-bg: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    --modal-border: rgba(255, 255, 255, 0.5);
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.5);
+    
+    --pergamino-size: 8rem; 
+}
+
+/* --- RESET Y BASE --- */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    user-select: none; touch-action: none; 
+}
+
+body, html {
+    width: 100vw; /* Usa vw/vh para ser exactos con la ventana */
+    height: 100vh; 
+    overflow: hidden; 
+    position: fixed; /* ESTO BLOQUEA EL SCROLL MÓVIL (efecto goma) */
+    background-color: #000;
+    display: flex; 
+    justify-content: center; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    touch-action: none; /* Bloquea gestos del navegador (zoom, pan) */
+}
+.scene {
+    position: relative; width: 100%; height: 100%; max-width: 1200px; 
+    background-color: var(--color-bg-dark); overflow: hidden;
+}
+
+.background {
+    position: absolute; width: 100%; height: 100%;
+    background-size: cover; background-position: center; z-index: 0;
+}
+.top-bg { background-image: url('assets/escene1.png'); }
+
+/* --- LA MESA (Reemplaza al tacho) --- */
+.mesa {
+    position: absolute; bottom: 0; left: 50%;
+    transform: translateX(-50%); width: 100%; 
+    pointer-events: none; z-index: 1; /* Detrás de los pergaminos */
+}
+
+/* --- OBJETOS FÍSICOS --- */
+.physics-object {
+    position: absolute; z-index: 2; cursor: grab; transform-origin: center center;
+}
+.physics-object:active { cursor: grabbing; }
+.physics-object img { width: var(--pergamino-size); pointer-events: none; }
+
+/* --- ESTADO LEÍDO (INVENTARIO TOP-LEFT) --- */
+.physics-object.leido {
+    position: absolute; transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+    transform: scale(0.4) rotate(-90deg) !important; 
+    transform-origin: center left !important; z-index: 100; cursor: default;
+}
+
+/* --- BOTONES DE NAVEGACIÓN --- */
+.nav-btn {
+    position: absolute; bottom: 30px; padding: 15px 25px;
+    background: var(--color-primary); color: var(--color-text-dark);
+    border: none; border-radius: 30px; font-weight: bold;
+    z-index: 20; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 255, 136, 0.3);
+}
+.nav-btn.right { right: 20px; }
+.nav-btn.top-right { 
+    top: 20px; right: 20px; bottom: auto; background: #ff4757; color: white; 
+    box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3); padding: 10px 15px; font-size: 0.9rem; 
+}
+
+/* --- MODAL ESTILO ANIME / TECH --- */
+.modal {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); 
+    display: flex; justify-content: center; align-items: center;
+    z-index: 100; opacity: 1; transition: opacity 0.3s ease;
+}
+.modal.hidden { opacity: 0; pointer-events: none; }
+.anime-scroll {
+    background: var(--modal-bg); color: var(--color-text-dark); padding: 30px; 
+    border-radius: 16px; width: 85%; max-width: 400px; text-align: center; 
+    box-shadow: var(--shadow-soft); border: 1px solid var(--modal-border);
+    transform: translateY(0); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.modal.hidden .anime-scroll { transform: translateY(50px); }
+.modal-header h3 {
+    font-size: 1.5rem; margin-bottom: 15px; color: var(--color-text-dark);
+    border-bottom: 2px solid var(--color-primary); padding-bottom: 10px;
+}
+.modal-body p { font-size: 1rem; line-height: 1.6; margin-bottom: 25px; }
+.btn-primary {
+    background: var(--color-text-dark); color: var(--color-text-light); border: none; 
+    padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%;
+}
+.btn-primary:active { background: #1a252f; }
+
+@media (min-width: 1020px) {
+	:root {
+		--pergamino-size: 12rem; 
+	}
+	.mesa {
+	    bottom: -17rem;
+	}
+}
