@@ -53,6 +53,36 @@ const physicsBodies = [];
 let pergaminosLeidos = 0;
 let valorActualAbierto = null; 
 
+const dropZoneVisual = document.querySelector('.drop-zone-visual');
+const NORMAL_TIME_SCALE = 1;
+let modalAbierto = false;
+
+let dragStartPos = null;
+let huboArrastre = false;
+
+function puntoEnDropZone(clientX, clientY) {
+    if (!dropZoneVisual) return false;
+    const rect = dropZoneVisual.getBoundingClientRect();
+    return (
+        clientX >= rect.left &&
+        clientX <= rect.right &&
+        clientY >= rect.top &&
+        clientY <= rect.bottom
+    );
+}
+
+function pausarEscenaParaModal() {
+    engine.timing.timeScale = 0;
+    render.canvas.style.pointerEvents = 'none';
+    modalAbierto = true;
+}
+
+function reanudarEscenaTrasModal() {
+    engine.timing.timeScale = NORMAL_TIME_SCALE;
+    render.canvas.style.pointerEvents = 'auto';
+    modalAbierto = false;
+}
+
 // 7. MEDIR LA MESA Y SOLTAR LOS PERGAMINOS SOBRE SU SUPERFICIE
 window.addEventListener('load', () => {
     
@@ -77,7 +107,7 @@ window.addEventListener('load', () => {
 
     const getSpawnPosition = (index) => {
         // Stagger vertical suave para que se vea la caída y evitar superposición inicial.
-        const xJitter = Math.random() * 16 - 8;
+        const xJitter = Math.random() * 5 - 3;
         const yJitter = Math.random() * 24;
         return {
             x: inicioX + (spacing / 2) + (spacing * index) + xJitter,
@@ -105,6 +135,14 @@ window.addEventListener('load', () => {
         
         physicsBodies.push({ dom: div, body: body, leido: false, valor: div.getAttribute('data-valor') });
         Composite.add(world, body);
+
+        // Permite reabrir el valor desde el inventario de pergaminos leidos.
+        div.addEventListener('click', () => {
+            const item = physicsBodies.find(p => p.dom === div);
+            if (item?.leido) {
+                abrirModal(item.valor);
+            }
+        });
     });
 
     Events.on(engine, 'afterUpdate', function() {
@@ -141,6 +179,25 @@ window.addEventListener('load', () => {
             valorActualAbierto = null;
         });
     }
+
+    const btnBoom = document.getElementById('btn-boom');
+    if (btnBoom) {
+        btnBoom.addEventListener('click', () => {
+            physicsBodies.forEach(item => {
+                if (item.leido) return;
+
+                const forceX = (Math.random() - 0.5) * 0.05;
+                const forceY = -(0.03 + Math.random() * 0.035);
+
+                Matter.Body.setVelocity(item.body, {
+                    x: (Math.random() - 0.5) * 18,
+                    y: -(9 + Math.random() * 8)
+                });
+                Matter.Body.setAngularVelocity(item.body, (Math.random() - 0.5) * 0.8);
+                Matter.Body.applyForce(item.body, item.body.position, { x: forceX, y: forceY });
+            });
+        });
+    }
 });
 
 // 8. LÓGICA DE CLICS / MODAL / INVENTARIO
@@ -159,23 +216,54 @@ const contenidos = {
 };
 
 // 3. ABRIR CON ARRASTRE LENTO O CLIC:
+Events.on(mouseConstraint, 'mousedown', function(event) {
+    dragStartPos = { x: event.mouse.position.x, y: event.mouse.position.y };
+    huboArrastre = false;
+});
+
+Events.on(mouseConstraint, 'mousemove', function(event) {
+    if (!dragStartPos) return;
+
+    const dx = event.mouse.position.x - dragStartPos.x;
+    const dy = event.mouse.position.y - dragStartPos.y;
+    const dist = Math.hypot(dx, dy);
+
+    if (dist > 8) {
+        huboArrastre = true;
+    }
+});
+
 Events.on(mouseConstraint, 'mouseup', function(event) {
     const mousePos = event.mouse.position;
-    
-    physicsBodies.forEach(item => {
-        if (item.leido) return; 
 
-        if (Matter.Bounds.contains(item.body.bounds, mousePos)) { 
-            // CAMBIO AQUÍ: Aumentamos la tolerancia de 3 a 20.
-            // Ahora perdonará movimientos bruscos al soltar.
-            if (item.body.speed < 20) {
-                abrirModal(item.valor);
-            }
+    // Si no se arrastró, no abrir modal (evita click simple).
+    if (!huboArrastre) {
+        dragStartPos = null;
+        return;
+    }
+
+    // Solo abrir si se suelta dentro de la drop zone visual.
+    if (!puntoEnDropZone(event.mouse.absolute.x, event.mouse.absolute.y)) {
+        dragStartPos = null;
+        return;
+    }
+
+    physicsBodies.forEach(item => {
+        if (item.leido) return;
+
+        // Debe soltarse sobre el propio pergamino arrastrado y con velocidad baja.
+        if (Matter.Bounds.contains(item.body.bounds, mousePos) && item.body.speed < 20) {
+            abrirModal(item.valor);
         }
     });
+
+    dragStartPos = null;
+    huboArrastre = false;
 });
 
 function abrirModal(valorId) {
+    if (modalAbierto) return;
+
     const data = contenidos[valorId];
     if(data) {
         valorActualAbierto = valorId;
@@ -184,13 +272,13 @@ function abrirModal(valorId) {
         btnCerrar.innerText = "ENTENDIDO ✔";
         
         modal.classList.remove('hidden');
-        render.canvas.style.pointerEvents = 'none'; 
+        pausarEscenaParaModal();
     }
 }
 
 btnCerrar.addEventListener('click', () => {
     modal.classList.add('hidden');
-    render.canvas.style.pointerEvents = 'auto'; 
+    reanudarEscenaTrasModal();
 
     if (valorActualAbierto) {
         const item = physicsBodies.find(p => p.valor === valorActualAbierto);
