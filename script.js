@@ -52,43 +52,54 @@ const pergaminosDOM = document.querySelectorAll('.pergamino');
 const physicsBodies = [];
 let pergaminosLeidos = 0;
 let valorActualAbierto = null; 
-let mousedownPos = null; 
 
-// 7. LA MAGIA: MEDIR LA MESA Y SOLTAR LOS PERGAMINOS ESPACIADOS
-// 7. LA MAGIA: MEDIR LA MESA Y SOLTAR LOS PERGAMINOS ESPACIADOS
-// 7. LA MAGIA: MEDIR LA MESA Y SOLTAR LOS PERGAMINOS ESPACIADOS
+// 7. MEDIR LA MESA Y SOLTAR LOS PERGAMINOS SOBRE SU SUPERFICIE
 window.addEventListener('load', () => {
     
     // Obtenemos dimensiones relativas al contenedor para que sea 100% responsive
     const mesaDOM = document.querySelector('.mesa');
     const mesaW = mesaDOM.offsetWidth;
     
-    // IMPORTANTE: Como la mesa está centrada, su borde izquierdo real es:
-    // la mitad del ancho total, menos la mitad de lo que mide la mesa.
-    const mesaRealX = (width / 2) - (mesaW / 2); 
-    const surfaceY = mesaDOM.offsetTop + 40; 
+    const surfaceY = mesaDOM.offsetTop + (mesaDOM.offsetHeight * 0.6);
 
     // Un solo rectángulo físico que funciona como escritorio centrado
+    const mesaSurfaceWidth = mesaW * 0.9;
     const mesaSurface = Bodies.rectangle(
-        width / 2, surfaceY, mesaW * 0.9, 20, { isStatic: true, render: { visible: false } }
+        width / 2, surfaceY, mesaSurfaceWidth, 20, { isStatic: true, render: { visible: false } }
     );
     Composite.add(world, [mesaSurface]);
 
-	const areaDeCaida = Math.min(mesaW * 0.85, 450); 
-    const inicioX = (width / 2) - (areaDeCaida / 2); // Centramos esa área
+    const pergaminoReferencia = pergaminosDOM[0]?.offsetWidth || 120;
+    const margenLateral = pergaminoReferencia * 0.35;
+    const areaDeCaida = Math.max(140, mesaSurfaceWidth - (margenLateral * 2));
+    const inicioX = (width / 2) - (areaDeCaida / 2);
     const spacing = areaDeCaida / pergaminosDOM.length;
 
+    const getSpawnPosition = (index) => {
+        // Stagger vertical suave para que se vea la caída y evitar superposición inicial.
+        const xJitter = Math.random() * 16 - 8;
+        const yJitter = Math.random() * 24;
+        return {
+            x: inicioX + (spacing / 2) + (spacing * index) + xJitter,
+            y: surfaceY - 180 - (index * 24) - yJitter
+        };
+    };
+
     pergaminosDOM.forEach((div, index) => {
-        // Caen esparcidos dentro del "área de caída" centrada
-        const startX = inicioX + (spacing / 2) + (spacing * index) + (Math.random() * 20 - 10); 
-        const startY = surfaceY - 200 - (Math.random() * 100); 
-        const bodyWidth = div.offsetWidth;
-        const bodyHeight = div.offsetHeight;
+        const spawn = getSpawnPosition(index);
+        const visualWidth = div.offsetWidth;
+        const visualHeight = div.offsetHeight;
+
+        // Cuerpo más compacto para que la colisión se acerque al pergamino visual.
+        const bodyWidth = visualWidth * 0.62;
+        const bodyHeight = visualHeight * 0.34;
         
-        const body = Bodies.rectangle(startX, startY, bodyWidth, bodyHeight, {
-            restitution: 0.4, 
+        const body = Bodies.rectangle(spawn.x, spawn.y, bodyWidth, bodyHeight, {
+            restitution: 0.25,
             friction: 0.5,
-			angle: Math.random() * 4 - 1,
+            frictionAir: 0.02,
+            chamfer: { radius: bodyHeight * 0.45 },
+			angle: Math.random() * 0.7 - 0.35,
             render: { visible: false }
         });
         
@@ -115,14 +126,13 @@ window.addEventListener('load', () => {
                 item.dom.style.top = '';
                 item.dom.style.left = '';
                 
-                // Aplicamos la misma matemática de inicioX aquí
-                const startX = inicioX + (spacing / 2) + (spacing * index) + (Math.random() * 20 - 10); 
-                const startY = surfaceY - 200 - (Math.random() * 100); 
+                const spawn = getSpawnPosition(index);
                 
-                Matter.Body.setPosition(item.body, { x: startX, y: startY });
+                Matter.Body.setPosition(item.body, { x: spawn.x, y: spawn.y });
                 Matter.Body.setVelocity(item.body, { x: 0, y: 0 }); 
+                Matter.Body.setAngularVelocity(item.body, 0);
 
-				Matter.Body.setAngle(item.body, Math.random() * 4 - 1);
+				Matter.Body.setAngle(item.body, Math.random() * 0.7 - 0.35);
                 
                 Matter.Composite.remove(world, item.body);
                 Matter.Composite.add(world, item.body);
