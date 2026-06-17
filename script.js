@@ -60,7 +60,7 @@ window.addEventListener('load', () => {
     const mesaDOM = document.querySelector('.mesa');
     const mesaW = mesaDOM.offsetWidth;
     
-    const surfaceY = mesaDOM.offsetTop + (mesaDOM.offsetHeight * 0.6);
+    const surfaceY = mesaDOM.offsetTop + (mesaDOM.offsetHeight * 0.4);
 
     // Un solo rectángulo físico que funciona como escritorio centrado
     const mesaSurfaceWidth = mesaW * 0.9;

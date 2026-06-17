@@ -46,7 +46,7 @@ body, html {
 
 /* --- LA MESA (Reemplaza al tacho) --- */
 .mesa {
-    position: absolute; bottom: 0; left: 50%; height: 10rem;
+    position: absolute; bottom: 0; left: 50%; height: 15rem;
     transform: translateX(-50%); width: 100%; 
     pointer-events: none; z-index: 1; /* Detrás de los pergaminos */
 }
@@ -61,7 +61,7 @@ body, html {
 /* --- ESTADO LEÍDO (INVENTARIO TOP-LEFT) --- */
 .physics-object.leido {
     position: absolute; transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
-    transform: scale(0.4) rotate(-90deg) !important; 
+    transform: scale(0.6) rotate(-90deg) !important; 
     transform-origin: center left !important; z-index: 100; cursor: default;
 }
 
@@ -115,7 +115,7 @@ body, html {
 
 .drop-zone-visual {
     position: absolute;
-    top: 40%; /* Ajusta esto para centrarlo en la mampara */
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -123,23 +123,22 @@ body, html {
     align-items: center;
     border: 2px dashed rgba(255, 255, 255, 0.3);
     border-radius: 15px;
-    padding: 30px 50px;
-    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    background: rgb(0 0 0 / 35%);
     backdrop-filter: blur(2px);
     color: rgba(255, 255, 255, 0.6);
-    pointer-events: none; /* Muy importante para que no bloquee el clic de los pergaminos */
-    z-index: 1; /* Detrás de los pergaminos */
+    pointer-events: none;
+    z-index: 1;
+    text-align: center;
+    gap: .5rem;
 }
 
 .drop-zone-visual .drop-icon {
     font-size: 2rem;
-    margin-bottom: 10px;
-    opacity: 0.7;
 }
 
 .drop-zone-visual span {
-    font-size: 1.2rem;
+font-size: 1.2rem;
     font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-family: monospace;
 }
