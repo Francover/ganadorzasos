@@ -486,6 +486,11 @@ btnCerrar.addEventListener('click', () => {
             
             pergaminosLeidos++;
             valorActualAbierto = null;
+
+            const btnBoomActual = esEscena2 ? document.getElementById('btn-boom-s2') : document.getElementById('btn-boom');
+            if (btnBoomActual && pergaminosLeidos >= physicsBodies.length) {
+                btnBoomActual.style.display = 'none';
+            }
         }
     }
 });
