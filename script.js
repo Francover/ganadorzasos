@@ -288,6 +288,9 @@ function inicializarEscena1() {
             });
             pergaminosLeidos = 0;
             valorActualAbierto = null;
+
+            const btnBoomS2 = document.getElementById('btn-boom-s2');
+            if (btnBoomS2) btnBoomS2.style.display = '';
         });
     }
 
