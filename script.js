@@ -335,10 +335,11 @@ const contenidos = {
     'impact': { titulo: 'IMPACTO', texto: 'Audaces en nuestras batallas frente a los retos del negocio.', color: '#c4512d' },
     'ownership': { titulo: 'OWNERSHIP', texto: 'La agilidad no pestañea.', color: '#8b6a3b' },
     'truth': { titulo: 'TRUTH', texto: 'Growth is truth: La integridad de la data primero.', color: '#d442af' },
-    'valor1': { titulo: 'Franco Alarcon', texto: 'Un día sin reir es un día perdido.', color: '#c0392b' },
+    'valor1': { titulo: 'Franco', texto: 'Un día sin reir es un día perdido.', color: '#c0392b' },
     'valor2': { titulo: 'Cristiano Ronaldo', texto: 'Siuuuu.', color: '#27ae60' },
-    'valor3': { titulo: 'Nicole Centeno', texto: 'Crecer no es solo alcanzar resultados, es desafiar lo que existe, aprender rápido y convertir cada oportunidad en una mejora.', color: '#ff00b3' },
-    'valor4': { titulo: 'Gerson Parodi', texto: 'Ganadorsazo!!', color: '#008594' },
+    'valor3': { titulo: 'Nico', texto: 'Crecer no es solo alcanzar resultados, es desafiar lo que existe, aprender rápido y convertir cada oportunidad en una mejora.', color: '#ff00b3' },
+    'valor4': { titulo: 'Gerson', texto: 'Ganadorsazo!!', color: '#008594' },
+    'valor5': { titulo: 'Lou', texto: 'Tu compromiso con el proceso, es lo que va a lograr tu progreso.', color: '#b30707' },
 };
 
 // 3. ABRIR CON ARRASTRE LENTO O CLIC:
@@ -443,7 +444,7 @@ function abrirModal(valorId) {
         modalTitulo.innerText = data.titulo;
         modalTexto.innerText = data.texto;
 
-        const esManzana = valorId === 'valor1' || valorId === 'valor2' || valorId === 'valor3' || valorId === 'valor4';
+        const esManzana = valorId === 'valor1' || valorId === 'valor2' || valorId === 'valor3' || valorId === 'valor4' || valorId === 'valor5';
         modal.classList.toggle('con-titulo', esManzana);
 
         // Color configurable desde contenidos (fallback al dinámico por filtro)
