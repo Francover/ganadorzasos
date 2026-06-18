@@ -27,6 +27,18 @@ render.canvas.style.zIndex = '10';
 render.canvas.style.pointerEvents = 'auto';
 render.canvas.style.background = 'transparent';
 
+// En touch real el canvas intercepta los taps sobre objetos leídos (z-index no ayuda en touch).
+// Detectamos si el tap cayó sobre un .physics-object.leido y disparamos su click.
+render.canvas.addEventListener('touchend', (e) => {
+    const touch = e.changedTouches[0];
+    const elDebajo = document.elementFromPoint(touch.clientX, touch.clientY);
+    const objeto = elDebajo?.closest('.physics-object.leido');
+    if (objeto) {
+        e.preventDefault();
+        objeto.click();
+    }
+}, { passive: false });
+
 Render.run(render);
 const runner = Runner.create();
 Runner.run(runner, engine);
