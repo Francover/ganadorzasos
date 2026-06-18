@@ -444,7 +444,7 @@ function abrirModal(valorId) {
         modalTitulo.innerText = data.titulo;
         modalTexto.innerText = data.texto;
 
-        const esManzana = valorId === 'valor1' || valorId === 'valor2' || valorId === 'valor3' || valorId === 'valor4' || valorId === 'valor5';
+        const esManzana = valorId === 'valor1' || valorId === 'valor2' || valorId === 'valor3' || valorId === 'valor4' || valorId === 'valor5' || valorId === 'valor6' || valorId === 'valor7';
         modal.classList.toggle('con-titulo', esManzana);
 
         // Color configurable desde contenidos (fallback al dinámico por filtro)
