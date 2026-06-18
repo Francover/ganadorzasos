@@ -332,6 +332,8 @@ const contenidos = {
     'truth': { titulo: 'TRUTH', texto: 'Growth is truth: La integridad de la data primero.', color: '#d442af' },
     'valor1': { titulo: 'Franco Alarcon', texto: 'Un día sin reir es un día perdido.', color: '#c0392b' },
     'valor2': { titulo: 'Cristiano Ronaldo', texto: 'Siuuuu.', color: '#27ae60' },
+    'valor3': { titulo: 'Nicole Centeno', texto: 'Crecer no es solo alcanzar resultados, es desafiar lo que existe, aprender rápido y convertir cada oportunidad en una mejora.', color: '#ff00b3' },
+    'valor4': { titulo: 'Gerson Parodi', texto: 'Ganadorsazo!!', color: '#008594' },
 };
 
 // 3. ABRIR CON ARRASTRE LENTO O CLIC:
@@ -436,7 +438,7 @@ function abrirModal(valorId) {
         modalTitulo.innerText = data.titulo;
         modalTexto.innerText = data.texto;
 
-        const esManzana = valorId === 'valor1' || valorId === 'valor2';
+        const esManzana = valorId === 'valor1' || valorId === 'valor2' || valorId === 'valor3' || valorId === 'valor4';
         modal.classList.toggle('con-titulo', esManzana);
 
         // Color configurable desde contenidos (fallback al dinámico por filtro)
@@ -502,8 +504,13 @@ if (btnConocenos) {
         scene2.style.display = 'block';
         scene2.classList.add('active');
 
-        // 2. Limpiamos los objetos físicos de la Escena 1 del mundo de Matter.js
+        // 2. Limpiamos los objetos físicos Y EL DOM de la Escena 1
         physicsBodies.forEach(item => {
+            // --- NUEVO: Limpiamos los rastros visuales ---
+            item.dom.classList.remove('leido');
+            item.dom.style.top = '';
+            item.dom.style.left = '';
+            
             Matter.Composite.remove(world, item.body);
         });
         physicsBodies.length = 0; // Vaciamos el array
@@ -629,8 +636,13 @@ function inicializarEscena2() {
             scene1.style.display = 'block';
             scene1.classList.add('active');
 
-            // Limpiar objetos de Escena 2
+            // Limpiar objetos físicos Y DOM de Escena 2
             physicsBodies.forEach(item => {
+                // --- NUEVO: Limpiamos los rastros visuales ---
+                item.dom.classList.remove('leido');
+                item.dom.style.top = '';
+                item.dom.style.left = '';
+                
                 Matter.Composite.remove(world, item.body);
             });
             physicsBodies.length = 0;
@@ -640,7 +652,6 @@ function inicializarEscena2() {
             inicializarEscena1();
         });
     }
-
     // Re-agregar listeners de vibración para botones de escena 2
     // (No necesario con delegación de eventos global)
 }
