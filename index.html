@@ -40,8 +40,29 @@
         <button id="btn-conocenos" class="nav-btn image-btn middle-right" aria-label="Conocenos">Conocenos</button>
     </div>
 
+    <div id="scene-2" class="scene" style="display: none;">
+        <div class="background top-bg" style="background-image: url('assets/escene2.png');"></div>
+
+        <div class="drop-zone-visual">
+
+            <span>Pon aquí el objeto</span>
+        </div>
+        
+        <img src="assets/mesa.png" class="mesa" alt="Mesa de cafetería">
+        
+        <div class="physics-object manzana" data-valor="valor1" data-emoji="🍎" data-objeto="manzana roja">
+            <img src="assets/manzana.png" alt="Objeto 1">
+        </div>
+        <div class="physics-object manzana" data-valor="valor2" data-emoji="🍏" data-objeto="manzana verde">
+            <img src="assets/manzana.png" alt="Objeto 2">
+        </div>
+        <button id="btn-reiniciar-s2" class="nav-btn image-btn top-right" aria-label="Reiniciar">Reiniciar</button>
+        <button id="btn-boom-s2" class="nav-btn image-btn bottom-right" aria-label="Boom">Boom</button>
+        <button id="btn-volver" class="nav-btn image-btn middle-right" aria-label="Volver">Volver</button>
+    </div>
+
     <div id="modal-mensaje" class="modal hidden">
-        <div class="modal-content anime-scroll">
+        <div id="modal-caja-dinamica" class="modal-content anime-scroll">
             <div class="modal-header">
                 <h3 id="modal-titulo">TÍTULO</h3>
             </div>
