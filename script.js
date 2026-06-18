@@ -29,13 +29,25 @@ render.canvas.style.background = 'transparent';
 
 // En touch real el canvas intercepta los taps sobre objetos leídos (z-index no ayuda en touch).
 // Detectamos si el tap cayó sobre un .physics-object.leido y disparamos su click.
-render.canvas.addEventListener('touchend', (e) => {
-    const touch = e.changedTouches[0];
+let objetoTocadoMovil = null;
+document.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
     const elDebajo = document.elementFromPoint(touch.clientX, touch.clientY);
-    const objeto = elDebajo?.closest('.physics-object.leido');
-    if (objeto) {
-        e.preventDefault();
-        objeto.click();
+    objetoTocadoMovil = elDebajo ? elDebajo.closest('.physics-object.leido') : null;
+}, { passive: true });
+
+// 2. Ejecutamos la acción cuando el dedo se levanta
+document.addEventListener('touchend', (e) => {
+    if (objetoTocadoMovil) {
+        e.preventDefault(); // Matamos el evento nativo para evitar doble-clicks fantasmas
+        
+        // Ejecutamos la apertura del modal directamente sin depender del .click() falso
+        const item = physicsBodies.find(p => p.dom === objetoTocadoMovil);
+        if (item && item.leido) {
+            abrirModal(item.valor);
+        }
+        
+        objetoTocadoMovil = null; // Limpiamos la variable
     }
 }, { passive: false });
 
