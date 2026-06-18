@@ -301,13 +301,12 @@ const btnCerrar = document.getElementById('btn-cerrar-modal');
 
 // 2. NUEVO VALOR AÑADIDO: 'ownership'
 const contenidos = {
-    'data': { titulo: 'DATA DRIVEN', texto: 'Tomamos decisiones basadas en datos duros.', color: '#1f8f5f' },
-    'agility': { titulo: 'AGILIDAD', texto: 'Iteramos rápido. Es mejor hecho que perfecto.', color: '#2e7dd1' },
-    'impact': { titulo: 'IMPACTO', texto: 'Buscamos acciones que muevan la aguja del negocio.', color: '#c4512d' },
+    'data': { titulo: 'DATA DRIVEN', texto: 'Ganadorzasos; con la mente en el juego.', color: '#1f8f5f' },
+    'agility': { titulo: 'AGILIDAD', texto: 'Somos valientes y estamos obsesionados.', color: '#2e7dd1' },
+    'impact': { titulo: 'IMPACTO', texto: 'Audaces en nuestras batallas frente a los retos del negocio.', color: '#c4512d' },
     'candor': { titulo: 'CANDOR', texto: 'Nos decimos la verdad de frente, con empatía y respeto.', color: '#7e4cc9' },
-    'ownership': { titulo: 'OWNERSHIP', texto: 'Actuamos como dueños, asumiendo la responsabilidad total.', color: '#8b6a3b' },
-    'valor1': { titulo: 'VALOR 1', texto: 'Descripción del valor 1 en escena 2.', color: '#d44242' },
-    'valor2': { titulo: 'VALOR 2', texto: 'Descripción del valor 2 en escena 2.', color: '#4f9f3a' }
+    'ownership': { titulo: 'OWNERSHIP', texto: 'La agilidad no pestañea.', color: '#8b6a3b' },
+    'valor1': { titulo: 'VALOR 1', texto: 'Growth is truth: La integridad de la data primero.', color: '#d44242' },
 };
 
 // 3. ABRIR CON ARRASTRE LENTO O CLIC:
