@@ -340,8 +340,8 @@ const contenidos = {
     'valor3': { titulo: 'Nico', texto: 'Crecer no es solo alcanzar resultados, es desafiar lo que existe, aprender rápido y convertir cada oportunidad en una mejora.', color: '#ff00b3' },
     'valor4': { titulo: 'Gerson', texto: 'Ganadorsazo!!', color: '#008594' },
     'valor5': { titulo: 'Lou', texto: 'Tu compromiso con el proceso, es lo que va a lograr tu progreso.', color: '#b30707' },
-    'valor6': { titulo: 'Iván', texto: 'Primero construyo, luego existo.', color: '#1c9a29' },
-    'valor7': { titulo: 'Coco', texto: 'Cuestionar lo establecido es el primer paso para evolucionar.', color: '#3900c8' },
+    'valor6': { titulo: 'Coco', texto: 'Cuestionar lo establecido es el primer paso para evolucionar.', color: '#3900c8' },
+    'valor7': { titulo: 'Iván', texto: 'Primero construyo, luego existo.', color: '#1c9a29' },
 };
 
 // 3. ABRIR CON ARRASTRE LENTO O CLIC:
