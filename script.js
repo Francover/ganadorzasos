@@ -291,6 +291,8 @@ function inicializarEscena1() {
 
             const btnBoomS2 = document.getElementById('btn-boom-s2');
             if (btnBoomS2) btnBoomS2.style.display = '';
+            const btnBoom = document.getElementById('btn-boom');
+            if (btnBoom) btnBoom.style.display = '';
         });
     }
 
@@ -620,8 +622,8 @@ function inicializarEscena2() {
             pergaminosLeidos = 0;
             valorActualAbierto = null;
 
-            const btnBoom = document.getElementById('btn-boom');
-            if (btnBoom) btnBoom.style.display = '';
+            const btnBoomS2Reinicio = document.getElementById('btn-boom-s2');
+            if (btnBoomS2Reinicio) btnBoomS2Reinicio.style.display = '';
         });
     }
 
