@@ -304,9 +304,10 @@ const contenidos = {
     'data': { titulo: 'DATA DRIVEN', texto: 'Ganadorzasos; con la mente en el juego.', color: '#1f8f5f' },
     'agility': { titulo: 'AGILIDAD', texto: 'Somos valientes y estamos obsesionados.', color: '#2e7dd1' },
     'impact': { titulo: 'IMPACTO', texto: 'Audaces en nuestras batallas frente a los retos del negocio.', color: '#c4512d' },
-    'candor': { titulo: 'CANDOR', texto: 'Nos decimos la verdad de frente, con empatía y respeto.', color: '#7e4cc9' },
     'ownership': { titulo: 'OWNERSHIP', texto: 'La agilidad no pestañea.', color: '#8b6a3b' },
-    'valor1': { titulo: 'VALOR 1', texto: 'Growth is truth: La integridad de la data primero.', color: '#d44242' },
+    'truth': { titulo: 'TRUTH', texto: 'Growth is truth: La integridad de la data primero.', color: '#d442af' },
+    'valor1': { titulo: 'Franco Alarcon', texto: 'Un día sin reir es un día perdido.', color: '#c0392b' },
+    'valor2': { titulo: 'Cristiano Ronaldo', texto: 'Siuuuu.', color: '#27ae60' },
 };
 
 // 3. ABRIR CON ARRASTRE LENTO O CLIC:
@@ -410,6 +411,9 @@ function abrirModal(valorId) {
         valorActualAbierto = valorId;
         modalTitulo.innerText = data.titulo;
         modalTexto.innerText = data.texto;
+
+        const esManzana = valorId === 'valor1' || valorId === 'valor2';
+        modal.classList.toggle('con-titulo', esManzana);
 
         // Color configurable desde contenidos (fallback al dinámico por filtro)
         const colorDinamico = colorBotonDesdeFiltro(filtroPergamino);
