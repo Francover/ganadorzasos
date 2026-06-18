@@ -524,6 +524,9 @@ if (btnConocenos) {
         physicsBodies.length = 0; // Vaciamos el array
         pergaminosLeidos = 0; // Reiniciamos el contador de lectura
 
+        const btnBoomS2 = document.getElementById('btn-boom-s2');
+        if (btnBoomS2) btnBoomS2.style.display = '';
+
         // 3. Cargamos los nuevos objetos de la Escena 2
         inicializarEscena2();
     });
@@ -658,6 +661,9 @@ function inicializarEscena2() {
             });
             physicsBodies.length = 0;
             pergaminosLeidos = 0;
+
+            const btnBoom = document.getElementById('btn-boom');
+            if (btnBoom) btnBoom.style.display = '';
 
             // Reinicializar Escena 1
             inicializarEscena1();
