@@ -342,6 +342,7 @@ const contenidos = {
     'valor5': { titulo: 'Lou', texto: 'Tu compromiso con el proceso, es lo que va a lograr tu progreso.', color: '#b30707' },
     'valor6': { titulo: 'Coco', texto: 'Cuestionar lo establecido es el primer paso para evolucionar.', color: '#3900c8' },
     'valor7': { titulo: 'Iván', texto: 'Primero construyo, luego existo.', color: '#1c9a29' },
+    'valor8': { titulo: 'Jhoncito', texto: 'Never Settle.', color: '#dbe703' },
 };
 
 // 3. ABRIR CON ARRASTRE LENTO O CLIC:
@@ -446,7 +447,7 @@ function abrirModal(valorId) {
         modalTitulo.innerText = data.titulo;
         modalTexto.innerText = data.texto;
 
-        const esManzana = valorId === 'valor1' || valorId === 'valor2' || valorId === 'valor3' || valorId === 'valor4' || valorId === 'valor5' || valorId === 'valor6' || valorId === 'valor7';
+        const esManzana = valorId === 'valor1' || valorId === 'valor2' || valorId === 'valor3' || valorId === 'valor4' || valorId === 'valor5' || valorId === 'valor6' || valorId === 'valor7' || valorId === 'valor8';
         modal.classList.toggle('con-titulo', esManzana);
 
         // Color configurable desde contenidos (fallback al dinámico por filtro)
